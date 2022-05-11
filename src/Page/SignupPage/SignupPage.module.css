@@ -1,0 +1,27 @@
+.Wrap {
+  text-align: center;
+}
+.footer{
+}
+.image{
+  width: 50%;
+  height: 100%;
+}
+.contents{
+  width: 50%;
+  height: 100%;
+  color: white;
+  text-align: left;
+}
+.subBox{
+  padding-left: 60px;
+}
+.loginButton::after{
+  background-color:antiquewhite;
+}
+.signupButton::after{
+  background-color:antiquewhite;
+}
+.signupButton{
+  width: 80px;
+}

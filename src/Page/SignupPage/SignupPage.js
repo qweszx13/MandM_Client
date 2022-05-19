@@ -1,6 +1,7 @@
 import styles from'./SignupPage.module.css';
+import { useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
-import { Input,Button,Checkbox,Form} from 'antd';
+import { Input,Button,Checkbox,Form,message} from 'antd';
 import { UserOutlined,LockOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.min.css';
 
@@ -10,6 +11,8 @@ import { useState } from 'react';
 
 
 function SignupPage() {
+
+  const navigate = useNavigate();
 
   const onRememberMeClick = ()=>{
 
@@ -22,11 +25,11 @@ function SignupPage() {
   }
 
   const onLoginSucces = (values)=>{
-    console.log('Success:', values);
+    navigate('/MandM');
   }
 
   const onLoginFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    message.error("입력란을 확인해주세요");
   };
 
 

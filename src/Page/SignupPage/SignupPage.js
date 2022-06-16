@@ -4,6 +4,10 @@ import { Layout } from 'antd';
 import { Input,Button,Checkbox,Form,message} from 'antd';
 import { UserOutlined,LockOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.min.css';
+import { accountLogin } from '../../apis/account';
+import slogun from '../../mbtiImage/slogun.jpg'
+import logo from '../../mbtiImage/MandM.png'
+
 
 import SignupModal from '../../Component/R_Signup/SignupModal/SignupModal';
 import { useState } from 'react';
@@ -11,6 +15,8 @@ import { useState } from 'react';
 
 
 function SignupPage() {
+  
+  console.log(localStorage.getItem("userToken"));
 
   const navigate = useNavigate();
 
@@ -24,9 +30,23 @@ function SignupPage() {
     setIsModalVisible(true);
   }
 
-  const onLoginSucces = (values)=>{
-    navigate('/MandM');
-  }
+  const onLoginSucces = async (values)=>{
+    try{
+      const result = await accountLogin(values.username,values.password);
+      localStorage.setItem('ACCESS_TOKEN',result.data.token);
+      message.success("로그인 성공");
+      const allInfo =  result.data;
+      delete allInfo.token; 
+      const userInfo = allInfo;
+      navigate("/MandM",{ state: userInfo });
+    }catch ({
+      response: {
+        data: { result },
+      },
+    }) {
+      message.warn("로그인 실패");
+    }
+}
 
   const onLoginFailed = (errorInfo) => {
     message.error("입력란을 확인해주세요");
@@ -37,12 +57,12 @@ function SignupPage() {
     <div className={styles.Wrap}>
       <Layout style={{display:"flex",flexDirection:"row",height:"100vh",width:"100%"}}>
         <div className={styles.image} style={{backgroundColor:"white"}}>
-          <img style={{width:"100%",height:"100%"}} src="##" alt="이미지 ㅇㅇ"></img>
+          <img style={{width:"100%",height:"100%"}} src={slogun} alt="이미지 ㅇㅇ"></img>
         </div>
 
         <div className={styles.contents}style={{backgroundColor:"black"}}>
           <div className={styles.subBox}>
-            <img style={{marginTop:"50px"}} src="##" alt="로고 2"></img>
+            <img style={{width:"70px",height:"80px",marginTop:"10px"}} src={logo} alt="로고 2"></img>
             <h2 style={{color:"#C0C0C0",fontSize:"2rem"}}>M&M</h2>
             <h1 style={{color:"white",fontSize:"3rem" , marginBottom:"0px"}}>모두의 MBTI로 소통하기</h1>
             <p style={{fontSize:"1.5rem", marginTop:"5px"}}>MBTI communication</p>

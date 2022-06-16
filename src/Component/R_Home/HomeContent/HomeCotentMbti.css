@@ -1,0 +1,8 @@
+table.fixed {
+  table-layout: fixed;
+}
+td.truncated {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

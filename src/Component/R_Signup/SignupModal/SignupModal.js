@@ -1,5 +1,6 @@
 import { Modal,Form, Input, Checkbox, Select, message } from 'antd';
 import { useState,useRef } from 'react';
+import { accountCreate } from '../../../apis/account';
 
 const { Option } = Select;
 
@@ -11,24 +12,40 @@ function SignupModal({isModalVisible,setIsModalVisible}){
     const signUpAgree = useRef();
     const [signUpMbti,setSignUpMbti] = useState("INTJ");
 
-    
-    const postSignUp = () =>{
 
-    }
-    
-
-    const handleOk = () => {
+    const handleOk = async () => {
       console.log(signUpId.current.input.value);
       console.log(signUpPw.current.input.value);
       console.log(signUpAgree.current.input.checked);
       console.log(signUpMbti);
-      const id = signUpId.current.input.value;
-      const pw = signUpPw.current.input.value;
-      const agree =  signUpAgree.current.input.checked;
-      if(id.trim() !== '' && pw.trim() !== '' && agree === true){
-        console.log("회원가입 포스트 ㄱ");
-      }else{
-        message.warn("양식을 채워주세요!");
+
+      const userId = signUpId.current.input.value;
+      const userPw = signUpPw.current.input.value;
+      const userMbti = signUpMbti;
+      const userAgree =  signUpAgree.current.input.checked; 
+      
+      setIsModalVisible(false);
+
+      const accountInfo = {
+        id : userId,
+        mbti : userMbti,
+        password : userPw
+      }
+      
+      console.log (accountInfo);
+      try{
+        if(userId.trim() !== '' && userPw.trim() !== '' && userAgree === true){
+          const result = await accountCreate(accountInfo);
+          message.success("계정 생성 성공");
+        }else{
+          message.warn("양식을 채워주세요!");
+        }
+      }catch ({
+        response: {
+          data: { result },
+        },
+      }) {
+        alert(result);
       }
     };
 

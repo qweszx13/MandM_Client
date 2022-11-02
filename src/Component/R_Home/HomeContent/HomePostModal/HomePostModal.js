@@ -2,7 +2,7 @@ import { Modal } from 'antd';
 import { useState } from 'react';
 import { post } from '../../../../apis/contents';
 import { message } from 'antd';
-import Editor from './custom-ckeditor5/build/ckeditor';
+import Editor from '../../../../../node_modules/custom-ckeditor5/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 
 const editorConfiguration = {

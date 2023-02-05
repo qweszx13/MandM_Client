@@ -7,16 +7,18 @@ import HomeHeader from '../../Component/R_Home/HomeHeader/HomeHeader';
 import HomeContentMbti from '../../Component/R_Home/HomeContent/HomeContentMbti';
 import HomeImg from "../../mbtiImage/HomeImg.png";
 import { FrownTwoTone, SmileTwoTone } from '@ant-design/icons';
+import tokenInstance from '../../apis/tokenInstance';
 
 const { Header, Sider, Content } = Layout;
 
 function HomePage(){
-
   const { state } = useLocation();
   const userInfo = state;
   const navigate = useNavigate();
   
   useEffect(()=>{
+    const token = localStorage.getItem('ACCESS_TOKEN');
+    tokenInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     if (!localStorage.getItem("ACCESS_TOKEN")) {
       alert("로그인이 필요한 기능입니다!");
       navigate("/")

@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import http from "./instance";
-import httpT from "./tokenInstance";
-import axios from "axios";
+import testHttp from "./instanceTest"
 
 /**
  * 유저 정보
@@ -15,6 +15,13 @@ import axios from "axios";
  * @param {AccountInfo} AccountInfo 유저 정보
  * @returns {Promise}
  */
+
+
+export const test = fetch('http://192.168.0.6:3000/api/kanji')
+.then(res => console.log(res))
+
+
+
 
 export const accountCreate = (AccountInfo)=> http.post("/account",AccountInfo);
 

@@ -5,6 +5,7 @@ import { Input,Button,Checkbox,Form,message} from 'antd';
 import { UserOutlined,LockOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.min.css';
 import { accountLogin } from '../../apis/account';
+import { test } from '../../apis/account';
 import slogun from '../../mbtiImage/slogun.jpg'
 import logo from '../../mbtiImage/MandM.png'
 
@@ -30,6 +31,7 @@ function SignupPage() {
     setIsModalVisible(true);
   }
 
+
   const onLoginSucces = async (values)=>{
     try{
       const result = await accountLogin(values.username,values.password);
@@ -52,6 +54,12 @@ function SignupPage() {
     message.error("입력란을 확인해주세요");
   };
 
+  const test = ()=>{
+    fetch('http://localhost:3000/api/kanji')
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+  } 
+
 
   return (
     <div className={styles.Wrap}>
@@ -65,6 +73,8 @@ function SignupPage() {
             <img style={{width:"70px",height:"80px",marginTop:"10px"}} src={logo} alt="로고 2"></img>
             <h2 style={{color:"#C0C0C0",fontSize:"2rem"}}>M&M</h2>
             <h1 style={{color:"white",fontSize:"3rem" , marginBottom:"0px"}}>모두의 MBTI로 소통하기</h1>
+            <Button className={styles.signupButton} type="primary" style={{backgroundColor:"#6495ED",borderColor:"#6495ED"}} onClick={ test
+            } >테스트</Button>
             <p style={{fontSize:"1.5rem", marginTop:"5px"}}>MBTI communication</p>
             <div style={{display:"flex",flexDirection:"column",width:"40%"}}>
 
